@@ -1,4 +1,4 @@
-# Assignment 4B: Manufacturing Analytics Meeting Intelligence
+# Manufacturing Analytics Meeting Intelligence
 
 This repository demonstrates a Claude Skill and JavaScript batch script for **LineSight Analytics**, an invented company selling a platform that predicts equipment downtime and connects process conditions to production-quality risks. The project is designed to be opened and run in Visual Studio Code.
 
