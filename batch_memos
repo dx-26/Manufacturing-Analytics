@@ -1,0 +1,161 @@
+#!/usr/bin/env node
+/** Generate deterministic manufacturing meeting-to-market memos. */
+
+const fs = require("node:fs");
+const path = require("node:path");
+
+function parseArguments(argv) {
+  const options = {};
+  for (let index = 0; index < argv.length; index += 2) {
+    const flag = argv[index];
+    const value = argv[index + 1];
+    if (!["--meetings", "--signals", "--output"].includes(flag) || !value) {
+      throw new Error(
+        "Usage: node batch_memos.js --meetings meetings.json --signals signals.json --output outputs"
+      );
+    }
+    options[flag.slice(2)] = value;
+  }
+
+  for (const required of ["meetings", "signals", "output"]) {
+    if (!options[required]) {
+      throw new Error(`Missing required argument: --${required}`);
+    }
+  }
+  return options;
+}
+
+function loadList(filePath) {
+  let value;
+  try {
+    value = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  } catch (error) {
+    throw new Error(`Could not read valid JSON from ${filePath}: ${error.message}`);
+  }
+  if (!Array.isArray(value)) {
+    throw new Error(`${filePath} must contain a JSON list`);
+  }
+  return value;
+}
+
+function slug(text) {
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
+}
+
+function matches(meeting, signals) {
+  const issues = new Set(meeting.issues || []);
+  return signals
+    .map((signal) => ({
+      signal,
+      overlap: (signal.tags || []).filter((tag) => issues.has(tag)).sort(),
+    }))
+    .filter(({ signal, overlap }) => overlap.length > 0 && signal.date && signal.url)
+    .sort((a, b) => b.overlap.length - a.overlap.length || a.signal.title.localeCompare(b.signal.title))
+    .slice(0, 2);
+}
+
+function render(meeting, signals) {
+  const selected = matches(meeting, signals);
+  const out = [
+    `# Meeting Intelligence Memo: ${meeting.organization}`,
+    "",
+    "## Meeting snapshot",
+    "",
+    `**Date:** ${meeting.date}  `,
+    `**Participants:** ${(meeting.participants || []).join(", ")}`,
+    "",
+    meeting.summary,
+    "",
+    "## Market evidence connected to this meeting",
+    "",
+  ];
+
+  if (selected.length > 0) {
+    for (const { signal, overlap } of selected) {
+      const topics = overlap.map((topic) => topic.replaceAll("_", " ")).join(", ");
+      out.push(
+        `### [${signal.title}](${signal.url})`,
+        "",
+        `**Publisher/date:** ${signal.publisher}, ${signal.date}  `,
+        signal.summary,
+        "",
+        `**Decision connection:** The signal relates directly to ${topics}. Use it to shape the pilot question or objection response, not as a promised result for this plant.`,
+        ""
+      );
+    }
+  } else {
+    out.push(
+      "No sufficiently relevant dated signal was found. Search again using a named asset, failure mode, metric, system, or competitor.",
+      ""
+    );
+  }
+
+  out.push(
+    "## Agreed or required actions",
+    "",
+    "| Next step | Owner | Timeline |",
+    "|---|---|---|"
+  );
+
+  if (meeting.actions.length > 0) {
+    for (const action of meeting.actions) {
+      out.push(
+        `| ${action.step || "NEEDS HUMAN INPUT"} | ${action.owner || "NEEDS HUMAN INPUT"} | ${action.timeline || "NEEDS HUMAN INPUT"} |`
+      );
+    }
+  } else {
+    out.push(
+      "| Define the asset, failure mode, and discovery objective | NEEDS HUMAN INPUT | NEEDS HUMAN INPUT |"
+    );
+  }
+
+  out.push(
+    "",
+    "## Pilot proof plan",
+    "",
+    "- Confirm the baseline period and data completeness before modeling.",
+    "- Predefine downtime/quality benefit, false-positive rate, alert lead time, and technician acceptance.",
+    "- Keep all recommendations advisory until an authorized engineer validates them.",
+    "",
+    "## Confidence and limitations",
+    "",
+    `**Confidence:** ${selected.length > 0 && meeting.actions.length > 0 ? "Moderate" : "Low"}.`,
+    "Public sources show market direction and examples; they do not prove compatibility, cybersecurity, prediction accuracy, avoided downtime, or ROI for this facility.",
+    "",
+    "> **HUMAN REVIEW REQUIRED:** The account lead and a qualified manufacturing or maintenance reviewer must verify all notes, sources, claims, actions, and safety boundaries before outreach or operational use.",
+    ""
+  );
+  return out.join("\n");
+}
+
+function validateMeeting(meeting) {
+  const required = ["id", "organization", "date", "summary", "issues", "actions"];
+  const missing = required.filter((field) => !(field in meeting));
+  if (missing.length > 0) {
+    throw new Error(`Meeting missing fields: ${missing.join(", ")}`);
+  }
+  if (!Array.isArray(meeting.issues) || !Array.isArray(meeting.actions)) {
+    throw new Error(`Meeting ${meeting.id} must use lists for issues and actions`);
+  }
+}
+
+function main() {
+  const options = parseArguments(process.argv.slice(2));
+  const meetings = loadList(options.meetings);
+  const signals = loadList(options.signals);
+  fs.mkdirSync(options.output, { recursive: true });
+
+  for (const meeting of meetings) {
+    validateMeeting(meeting);
+    const outputPath = path.join(options.output, `${slug(meeting.id)}.md`);
+    fs.writeFileSync(outputPath, render(meeting, signals), "utf8");
+  }
+  console.log(`Generated ${meetings.length} memos in ${options.output}`);
+}
+
+try {
+  main();
+} catch (error) {
+  console.error(`Error: ${error.message}`);
+  process.exitCode = 1;
+}
