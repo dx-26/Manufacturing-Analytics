@@ -1,0 +1,47 @@
+[
+  {
+    "id": "fox_river",
+    "organization": "Fox River Packaging",
+    "date": "2026-07-13",
+    "participants": ["Monica Tran, Plant Manager", "Eric Dahl, Maintenance Manager", "David, LineSight BD"],
+    "summary": "The converting line has intermittent stops around the unwind and web-tension systems. Eric is interested in earlier warnings but said technicians already ignore noisy alarms. Monica will consider a pilot only if it measures avoided downtime without interrupting production. The team tentatively selected one line and agreed to review twelve months of historian and maintenance data before choosing alert thresholds.",
+    "issues": ["predictive_maintenance", "false_alerts", "human_expertise", "downtime"],
+    "actions": [
+      {"step": "Provide a data-availability checklist", "owner": "David", "timeline": "by 2026-07-20"},
+      {"step": "Identify historian and maintenance-log owners", "owner": "Eric Dahl", "timeline": "within 10 business days"}
+    ]
+  },
+  {
+    "id": "great_lakes",
+    "organization": "Great Lakes Consumer Products",
+    "date": "2026-07-15",
+    "participants": ["Priya Nair, Quality Director", "Sam Ortega, Operations Excellence Lead", "David, LineSight BD"],
+    "summary": "Great Lakes sees recurring seal defects that are usually detected during downstream inspection. Priya wants to know whether process and sensor patterns could flag risk sooner, but she will not approve automated disposition of product. Sam requested a business case using scrap rate, rework hours, first-pass yield, and false-positive rate. They agreed to a synthetic-data demonstration followed by a scoped data assessment.",
+    "issues": ["quality_control", "process_analytics", "human_review", "false_alerts"],
+    "actions": [
+      {"step": "Demonstrate defect-risk scoring with synthetic data", "owner": "LineSight solutions engineer", "timeline": "by 2026-07-29"},
+      {"step": "Confirm baseline quality metric definitions", "owner": "Priya Nair", "timeline": "before the demonstration"}
+    ]
+  },
+  {
+    "id": "northwoods",
+    "organization": "Northwoods Components",
+    "date": "2026-07-17",
+    "participants": ["Caleb Morris, Reliability Leader", "Nina Park, OT Security Manager", "David, LineSight BD"],
+    "summary": "Northwoods wants to reduce reactive maintenance on CNC and compressed-air assets. Caleb asked whether recommendations can enter the existing CMMS instead of becoming another dashboard. Nina requires read-only architecture, network segmentation, audit logs, and no autonomous equipment control. The tentative next step is a technical architecture workshop using a sample asset and mock CMMS workflow.",
+    "issues": ["cmms_integration", "cybersecurity", "workflow_automation", "predictive_maintenance"],
+    "actions": [
+      {"step": "Draft a read-only reference architecture", "owner": "LineSight solutions engineer", "timeline": "by 2026-07-27"},
+      {"step": "Send OT security requirements", "owner": "Nina Park", "timeline": "by 2026-07-22"}
+    ]
+  },
+  {
+    "id": "badger_edge_case",
+    "organization": "Badger Specialty Manufacturing",
+    "date": "2026-07-19",
+    "participants": ["Chris Young, Operations Manager", "David, LineSight BD"],
+    "summary": "Chris said downtime is frustrating and AI might help. No asset, failure mode, baseline, data source, budget, stakeholder, next step, owner, or target date was identified.",
+    "issues": ["downtime"],
+    "actions": []
+  }
+]

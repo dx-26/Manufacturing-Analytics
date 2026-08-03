@@ -1,0 +1,10 @@
+[
+  {
+    "id": "no_summary",
+    "organization": "Missing Field Co",
+    "date": "2026-07-01",
+    "participants": ["Test User"],
+    "issues": ["downtime"],
+    "actions": []
+  }
+]

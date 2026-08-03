@@ -1,0 +1,10 @@
+[
+  {
+    "id": "broken",
+    "organization": "Broken Syntax Co",
+    "date": "2026-07-01",
+    "participants": ["Test User"],
+    "summary": "Missing closing bracket on purpose.",
+    "issues": ["downtime"],
+    "actions": []
+  }

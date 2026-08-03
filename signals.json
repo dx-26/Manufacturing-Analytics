@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Ninety-Five Percent of Manufacturers Are Investing in AI",
+    "publisher": "Rockwell Automation",
+    "date": "2025-06-03",
+    "url": "https://www.rockwellautomation.com/en-us/company/news/press-releases/Ninety-Five-Percent-of-Manufacturers-Are-Investing-in-AI-to-Navigate-Uncertainty-and-Accelerate-Smart-Manufacturing.html",
+    "summary": "Rockwell reports that quality control remained the top AI use case and that 50% of surveyed manufacturers planned to apply AI or machine learning to product quality in 2025. This is adoption context, not proof of LineSight outcomes.",
+    "tags": ["quality_control", "process_analytics", "human_review"]
+  },
+  {
+    "title": "BlueScope Saves Around 2,000 Hours with Predictive Maintenance",
+    "publisher": "Siemens",
+    "date": "2025-09-04",
+    "url": "https://news.siemens.com/en-us/bluescope-predictive-maintenance/",
+    "summary": "A Siemens customer case reports roughly 2,000 hours of avoided unplanned downtime using Senseye. It supports pilot interest but is vendor evidence from a different operation, not a transferable guarantee.",
+    "tags": ["predictive_maintenance", "downtime"]
+  },
+  {
+    "title": "Predictive Maintenance for Automotive Smart Manufacturing",
+    "publisher": "Siemens",
+    "date": "2025-04-28",
+    "url": "https://blogs.sw.siemens.com/automotive-transportation/2025/04/28/predictive-maintenance-for-automotive-smart-manufacturing/",
+    "summary": "Siemens states that AI may flag issues while experienced technicians and engineers remain central to diagnosis and resolution.",
+    "tags": ["predictive_maintenance", "human_expertise", "false_alerts", "human_review"]
+  },
+  {
+    "title": "Siemens Expands Industrial Copilot with Generative AI Maintenance Offering",
+    "publisher": "Siemens",
+    "date": "2025-03-24",
+    "url": "https://press.siemens.com/global/en/pressrelease/siemens-expands-industrial-copilot-new-generative-ai-powered-maintenance-offering",
+    "summary": "Siemens announced maintenance-cycle capabilities spanning repair, prevention, prediction, and optimization, showing competitive movement toward integrated maintenance workflows.",
+    "tags": ["workflow_automation", "cmms_integration", "predictive_maintenance"]
+  },
+  {
+    "title": "AI in Action: Beyond Experimentation to Transform Industry",
+    "publisher": "World Economic Forum",
+    "date": "2025-01-01",
+    "url": "https://reports.weforum.org/docs/WEF_AI_in_Action_Beyond_Experimentation_to_Transform_Industry_2025.pdf",
+    "summary": "The report identifies predictive maintenance, quality control, and production automation as focus areas for advanced manufacturers.",
+    "tags": ["predictive_maintenance", "quality_control", "process_analytics"]
+  }
+]
