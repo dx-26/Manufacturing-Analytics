@@ -9,6 +9,12 @@ description: Turn one manufacturing sales meeting record and a market-signals da
 
 Given one meeting record (from a file like `meetings.json`) and a set of market signals (from a file like `signals.json`), produce a single Markdown memo that tells an account team what to do next — grounded in what was actually said in the meeting and in market evidence that actually connects to it. Never a meeting summary bolted to an unrelated news digest.
 
+This Skill exists to make two judgment calls the same way every time, rather than fresh per meeting:
+1. **Is the follow-up complete?** At minimum: a next step, a named owner, and a timeline.
+2. **Is a search/signal result worth including?** Only if it actually connects to something raised in *that specific meeting* — not everything a search turns up belongs in the memo.
+
+See `grasp-briefs.md`, Brief 3, for exactly when a human must review this Skill's output and how its correctness is checked.
+
 ## Inputs
 
 - **A meeting record** with at minimum: `id`, `organization`, `date`, `participants`, `summary`, `issues` (a list of topic tags), `actions` (a list of `{step, owner, timeline}`, possibly empty).

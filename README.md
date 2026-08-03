@@ -28,7 +28,7 @@ Arguments, in order: the meetings JSON file, the signals JSON file, and the dire
 
 - `SKILL.md` — the reusable Claude Skill: the decision rules for follow-up completeness, signal relevance, memo structure, and guardrails against fabrication. Use it to draft a single memo conversationally; the rules match the batch script exactly.
 - `batch_memos.py` — the batch script. Validates its inputs and applies the same rules in one run across every meeting.
-- `grasp-briefs.md` — the two GRASP briefs governing this project: Brief 1 (Cowork research stage) and Brief 2 (this Code stage).
+- `grasp-briefs.md` — three GRASP briefs: Brief 1 (Cowork research stage), Brief 2 (the Code stage overall), and Brief 3 (the Skill itself — exactly when a human must review its output, and how its correctness is checked beyond "looks fine").
 - `keyword-brainstorm.md` — the Cowork-stage search-term brainstorm behind `signals.json`, kept for provenance.
 - `meetings.json`, `signals.json` — the exact inputs from the Cowork stage (not regenerated here).
 - `outputs/` — one memo per meeting, produced by the command above.
@@ -45,4 +45,4 @@ It does not contact prospects, send outreach, access plant systems, control equi
 
 ## Required sign-off
 
-Every memo is a draft. The account lead and a maintenance or manufacturing subject-matter expert must review a memo — including its confidence label, every `NEEDS HUMAN INPUT` flag, and every cited signal — before it informs outreach, a pilot proposal, an ROI claim, a data connection, or any other external or operational action.
+Every memo is a draft. The account lead and a maintenance or manufacturing subject-matter expert must review a memo — including its confidence label, every `NEEDS HUMAN INPUT` flag, and every cited signal — before it informs outreach, a pilot proposal, an ROI claim, a data connection, or any other external or operational action. `grasp-briefs.md` (Brief 3) spells out the exact trigger points and how the Skill's output is checked for correctness, not just reviewed for how it looks.
